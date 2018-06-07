@@ -1,7 +1,5 @@
 pub fn nth(n: u32) -> Option<u32> {
-   if n == 1 {
-        Some(2) 
-    } else if n == 0 {
+    if n == 0 {
         None
    } else {
        let mut primes = vec![2];
@@ -15,7 +13,7 @@ pub fn nth(n: u32) -> Option<u32> {
        let index = (primes.len() - 1) as usize;
        match primes.get(index){
         Some(p) => Some(*p),
-        None => Some(2)
+        None => panic!("Uh oh! Something went wrong")
        }
     }
 }
