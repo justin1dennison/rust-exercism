@@ -11,11 +11,10 @@ pub fn nth(n: u32) -> Option<u32> {
         count += 2; 
        }
        let index = (primes.len() - 1) as usize;
-       match primes.get(index){
-        Some(p) => Some(*p),
-        None => panic!("Uh oh! Something went wrong")
-       }
-    }
+       primes
+            .get(index)
+            .map(|i| *i)
+   }
 }
 
 fn is_prime(u: u32) -> bool {
