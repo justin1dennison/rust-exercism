@@ -1,15 +1,11 @@
 pub fn is_armstrong_number(num: u32) -> bool {
-    let mut work_num = num.clone();
-    let mut digits = vec![];
-    while work_num > 0 {
-        let digit = work_num % 10;
-        digits.push(digit);
-        work_num /= 10;
-    }
-    let mut result = 0u32;
-    let length = digits.len() as u32;
-    for digit in digits.iter() {
-        result += digit.pow(length);
-    }
-    result == num
+    let num_string = num.to_string();
+    let length  = num_string.len() as u32;
+    num == num_string
+            .chars()
+            .map(|c| c.to_digit(10).unwrap())
+            .map(|c| c.pow(length))
+            .collect::<Vec<u32>>()
+            .iter()
+            .sum()
 }
