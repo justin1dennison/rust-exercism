@@ -22,19 +22,7 @@ impl Clock {
     }
 
     pub fn add_minutes(&self, minutes: i32) -> Self {
-        let mins = (minutes + self.minutes) % 60;
-        let hours = (self.hours + ((self.minutes + minutes) / 60)) % 24;
-        if mins < 0 {
-            Clock {
-                hours: (hours - (mins / 60 + 1) + 24) % 24,
-                minutes: mins + 60,
-            }
-        } else {
-            Clock {
-                hours,
-                minutes: mins,
-            }
-        }
+        Clock::new(self.hours, self.minutes + minutes)
     }
 }
 
