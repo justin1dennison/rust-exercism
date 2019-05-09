@@ -12,14 +12,16 @@ impl Clock {
     }
 
     fn from_minutes(minutes: i32) -> Self {
+        let hs =  minutes / 60 % 24;
+        let ms = minutes % 60;
         let (hours, minutes) = if minutes < 0 {
-            let hours = 24 + (minutes / 60 % 24) - 1;
-            let minutes = 60 + (minutes % 60);
-            if minutes != 60 { (hours, minutes) } else { (hours + 1, 00) }
+            let hours = 24 + hs - 1;
+            let minutes = 60 + ms;
+            (hours + minutes / 60, minutes % 60)
         } else {
-            let hours = (minutes / 60  + 24) % 24;
-            let minutes = minutes % 60;
-            (hours, minutes)
+            let hours = (24 + hs) % 24;
+            let minutes = (60 + ms) % 60;
+            (hours + minutes / 60, minutes % 60)
         };
         Clock { hours, minutes }
     }
