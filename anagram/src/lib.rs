@@ -1,6 +1,6 @@
 use std::collections::HashSet;
 
-fn sorted_char_vec<'a>(s: &'a str) -> Vec<char> {
+fn sorted_char_vec(s: &str) -> Vec<char> {
     let mut v = s.chars().collect::<Vec<char>>();
     v.sort();
     v
