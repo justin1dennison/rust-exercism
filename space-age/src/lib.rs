@@ -1,4 +1,6 @@
 
+const EARTH_SECONDS_PER_YEAR: u64 = 31_557_600;
+
 #[derive(Debug)]
 pub struct Duration{
   seconds: u64
@@ -11,24 +13,31 @@ impl From<u64> for Duration {
 }
 
 pub trait Planet {
-    fn years_during(d: &Duration) -> f64; 
+    const EARTH_YEAR_RATIO: f64;
+    fn years_during(d: &Duration) -> f64 {
+        let seconds = d.seconds;
+        (seconds as f64) / (Self::EARTH_YEAR_RATIO  * EARTH_SECONDS_PER_YEAR as f64)
+    }
 }
 
 macro_rules! planet {
     ($planet:ident, $earth_year_ratio:expr) => {
-        pub struct $planet;
         impl Planet for $planet {
-            fn years_during(d: &Duration) -> f64 {
-                let seconds = d.seconds;
-                (seconds as f64) / ($earth_year_ratio * EARTH_SECONDS_PER_YEAR as f64)
-            }
+            const EARTH_YEAR_RATIO: f64 = $earth_year_ratio;
         }
 
     }
 }
 
+pub struct Mercury;
+pub struct Venus;
+pub struct Earth;
+pub struct Mars;
+pub struct Jupiter;
+pub struct Saturn;
+pub struct Uranus;
+pub struct Neptune;
 
-const EARTH_SECONDS_PER_YEAR: u64 = 31_557_600;
 planet!(Mercury, 0.2408467);
 planet!(Venus, 0.61519726);
 planet!(Earth, 1.0);
