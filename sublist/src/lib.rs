@@ -12,8 +12,7 @@ fn is_sublist<T: PartialEq>(fst: &[T], snd: &[T]) -> bool {
 }
 
 fn is_superlist<T: PartialEq>(fst: &[T], snd: &[T]) -> bool {
-    let size: usize = snd.len();
-    (!fst.is_empty() && snd.is_empty()) || fst.windows(size).any(|xs| xs == snd)
+    is_sublist(snd, fst)
 }
 
 pub fn sublist<T: PartialEq>(fst: &[T], snd: &[T]) -> Comparison {
